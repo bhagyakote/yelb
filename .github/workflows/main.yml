@@ -5,9 +5,14 @@ on:
   # pull_request:
   #   branches: [master]
   workflow_dispatch:
+ 
+    
 jobs:
   build:
     runs-on: tag3
     steps:
+    # Step 1: Checkout repository code
+    - name: Checkout repository
+      uses: actions/checkout@v2
     - name: List directory contents
       run: docker build -t yelb-ui:latest ./yelb-ui 
