@@ -36,6 +36,8 @@ jobs:
           aws-region: ap-south-1  # Change to your region
 
       - name: SSH to EC2 and deploy
+
+      
         run: |
           ssh -o StrictHostKeyChecking=no -i /home/fs-lp-27/Downloads.key-mumbai.pem ec2-user@3.111.32.192 << 'EOF'
             # Navigate to your application directory (or create one if not existing)
