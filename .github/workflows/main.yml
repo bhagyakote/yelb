@@ -1,1 +1,13 @@
-aaaa
+name: Simple Docker Build
+on:
+  # push:
+  #   branches: [master]
+  # pull_request:
+  #   branches: [master]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: tag2
+    steps:
+    - name: List directory contents
+      run: docker build -t yelb-ui:latest ./yelb-ui 
