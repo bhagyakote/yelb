@@ -15,4 +15,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: List directory contents
-      run: docker build -t yelb-ui:latest ./yelb-ui 
+      run: |
+          cd /home/fs-lp-27/actions-runner/_work/yelb/yelb/deployments/localtest
+          docker-compose -f docker-compose.yaml up -d
