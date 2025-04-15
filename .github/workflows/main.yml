@@ -14,7 +14,53 @@ jobs:
     # Step 1: Checkout repository code
     - name: Checkout repository
       uses: actions/checkout@v2
-    - name: List directory contents
+    - name: docker-compose up
       run: |
           cd /home/fs-lp-27/actions-runner3/_work/yelb/yelb/deployments/localtest
           docker-compose -f docker-compose.yaml up -d
+
+
+
+  deploy:
+    runs-on: tag3
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up AWS CLI
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2  # Change to your region
+
+      - name: SSH to EC2 and deploy
+        run: |
+          ssh -o StrictHostKeyChecking=no -i /home/fs-lp-27/Downloads.key-mumbai.pem ec2-user@3.111.32.192 << 'EOF'
+            # Navigate to your application directory (or create one if not existing)
+            cd /home/ec2-user/your-app-directory || mkdir /home/ec2-user/your-app-directory
+            git pull origin main || git clone https://github.com/your-username/your-repo.git /home/ec2-user/your-app-directory
+
+            # Install dependencies if needed (example: npm install or pip install)
+            cd /home/ec2-user/your-app-directory
+            npm install # or any other command like pip install -r requirements.txt
+
+            # Start the application (replace with your own start command)
+            nohup npm start &  # or python app.py or your respective start command
+
+            # Open port 8080 for the application (firewall/iptables rules)
+            sudo ufw allow 8080/tcp || sudo iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
+            sudo service ufw reload || sudo systemctl restart iptables
+
+            # Make sure your application is running (optional step to check)
+            curl http://localhost:8080
+
+            exit
+          EOF
+
+      - name: Verify Application is Running
+        run: |
+          curl http://<your-ec2-public-ip>:8080
+          
+      
