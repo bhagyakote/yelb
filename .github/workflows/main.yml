@@ -27,6 +27,13 @@ jobs:
           docker tag yelb-ui:latest 311141523175.dkr.ecr.us-east-1.amazonaws.com/ecr1:yelb-ui
           docker tag yelb-db:latest 311141523175.dkr.ecr.us-east-1.amazonaws.com/ecr1:yelb-db
           docker tag yelb-appserver:latest 311141523175.dkr.ecr.us-east-1.amazonaws.com/ecr1:yelb-appserver
+          
+     - name: Scan yelb-ui for vulnerabilities with Docker Scout
+       run: |
+            
+            docker scout cves yelb-ui:latest > /home/fs-lp-27/actions-runner3/_work/yelb/yelb/yelb-ui-cves.txt
+            docker scout cves yelb-db:latest > /home/fs-lp-27/actions-runner3/_work/yelb/yelb/yelb-db-cves.txt
+            docker scout cves yelb-appserver:latest > /home/fs-lp-27/actions-runner3/_work/yelb/yelb/yelb-appserver-cves.txt
 
     
     # # Step 1: Checkout repository code
