@@ -9,9 +9,9 @@ on:
  
     
 jobs:
-  build:
-    runs-on: tag3
-    steps:
+  # build:
+  #   runs-on: tag3
+  #   steps:
     
      # - name: Log in to Docker Hub
      #   uses: docker/login-action@v3
@@ -42,7 +42,7 @@ jobs:
      #        docker scout cves yelb-appserver:latest > /home/fs-lp-27/actions-runner3/_work/yelb/yelb/yelb-appserver-cves.txt
 
   frog-Integration-check:
-      runs-on: tag1  # Ensure 'tag1' is a valid self-hosted runner label
+      runs-on: tag3
   
       steps:
         - name: Checkout code
