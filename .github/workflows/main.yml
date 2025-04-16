@@ -6,10 +6,7 @@ on:
   #   branches: [master]
   workflow_dispatch:
 
-   # push:
-  #   branches: [master]
-  # pull_request:
-  #   branches: [master]
+ 
     
 jobs:
   build:
@@ -30,6 +27,8 @@ jobs:
     #   run: |
     #       cd /home/fs-lp-27/actions-runner3/_work/yelb/yelb/deployments/localtest
     #       docker-compose -f docker-compose.yaml up -d
+
+
 
 
 
