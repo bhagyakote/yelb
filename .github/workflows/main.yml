@@ -46,6 +46,8 @@ jobs:
         run: |
           echo "Listing files in /home/fs-lp-27/actions-runner3/_work/yelb/yelb"
           ls -l /home/fs-lp-27/actions-runner3/_work/yelb/yelb
+
+
           
     frog-Integration-check:
       runs-on: tag3
@@ -71,7 +73,8 @@ jobs:
                --interactive=false
                
         - name: Upload artifact to Artifactory
-          run: jf rt u "/home/fs-lp-27/actions-runner3/_work/yelb/yelb/yelb*.txt" "yelb/yelb-cve-reports/" --flat=true --server-id=my-new-server
+          run: |
+             jf rt u "/home/fs-lp-27/actions-runner3/_work/yelb/yelb/yelb-ui-cves.txt" "yelb/yelb-cve-reports/" --flat=true --server-id=my-new-server
     
     # # Step 1: Checkout repository code
     # - name: Checkout repository
