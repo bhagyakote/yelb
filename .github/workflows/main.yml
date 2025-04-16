@@ -37,15 +37,15 @@ jobs:
       - name: Scan yelb-ui for vulnerabilities with Docker Scout
         run: |
             
-            docker scout cves yelb-ui:latest > /home/fs-lp-27/actions-runner3/_work/yelb/yelb/yelb-ui-cves.txt
-            docker scout cves yelb-db:latest > /home/fs-lp-27/actions-runner3/_work/yelb/yelb/yelb-db-cves.txt
-            docker scout cves yelb-appserver:latest > /home/fs-lp-27/actions-runner3/_work/yelb/yelb/yelb-appserver-cves.txt
+            docker scout cves yelb-ui:latest > /home/fs-lp-27/reports/yelb-ui-cves.txt
+            docker scout cves yelb-db:latest > /home/fs-lp-27/reports/yelb-db-cves.txt
+            docker scout cves yelb-appserver:latest > /home/fs-lp-27/reports/yelb-appserver-cves.txt
 
             
       - name: List files in /home/fs-lp-27/actions-runner3/_work/yelb/yelb
         run: |
           echo "Listing files in /home/fs-lp-27/actions-runner3/_work/yelb/yelb"
-          ls -l /home/fs-lp-27/actions-runner3/_work/yelb/yelb
+          ls -l /home/fs-lp-27/reports
 
 
           
@@ -74,7 +74,7 @@ jobs:
                
         - name: Upload artifact to Artifactory
           run: |
-             jf rt u "./yelb/yelb/yelb-ui-cves.txt" "yelb/yelb-cve-reports/" --flat=true --server-id=my-new-server
+             jf rt u "/home/fs-lp-27/reports/yelb-ui-cves.txt" "yelb/yelb-cve-reports/" --flat=true --server-id=my-new-server
     
     # # Step 1: Checkout repository code
     # - name: Checkout repository
