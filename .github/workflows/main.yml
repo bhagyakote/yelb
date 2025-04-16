@@ -65,7 +65,7 @@ jobs:
                --interactive=false
                
         - name: Upload artifact to Artifactory
-          run: jf rt u "/home/fs-lp-27/actions-runner/_work/yelb/yelb/*.txt" "yelb/yelb-cve-reports/" --flat=true --server-id=my-new-server
+          run: jf rt u "/home/fs-lp-27/actions-runner3/_work/yelb/yelb/*.txt" "yelb/yelb-cve-reports/" --flat=true --server-id=my-new-server
     
     # # Step 1: Checkout repository code
     # - name: Checkout repository
@@ -74,6 +74,8 @@ jobs:
     #   run: |
     #       cd /home/fs-lp-27/actions-runner3/_work/yelb/yelb/deployments/localtest
     #       docker-compose -f docker-compose.yaml up -d
+
+
 
 
 
