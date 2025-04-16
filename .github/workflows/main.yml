@@ -20,6 +20,15 @@ jobs:
           docker build --no-cache -t yelb-appserver:latest ./yelb-appserver 
           docker build -t yelb-ui:latest ./yelb-ui 
           docker build -t yelb-db:latest ./yelb-db 
+
+   
+     - name: Tag Docker image
+       run: |
+          docker tag yelb-ui:latest 311141523175.dkr.ecr.us-east-1.amazonaws.com/ecr1:yelb-ui
+          docker tag yelb-db:latest 311141523175.dkr.ecr.us-east-1.amazonaws.com/ecr1:yelb-db
+          docker tag yelb-appserver:latest 311141523175.dkr.ecr.us-east-1.amazonaws.com/ecr1:yelb-appserver
+
+    
     # # Step 1: Checkout repository code
     # - name: Checkout repository
     #   uses: actions/checkout@v2
