@@ -46,8 +46,9 @@ jobs:
         run: |
           echo "Listing files in /home/fs-lp-27/actions-runner3/_work/yelb/yelb"
           ls -l /home/fs-lp-27/actions-runner3/_work/yelb/yelb
-  # frog-Integration-check:
-  #     runs-on: tag3
+          
+    frog-Integration-check:
+      runs-on: tag3
   
       steps:
         - name: Checkout code
