@@ -74,7 +74,7 @@ jobs:
                
         - name: Upload artifact to Artifactory
           run: |
-             jf rt u "/home/fs-lp-27/actions-runner3/_work/yelb/yelb/yelb-ui-cves.txt" "yelb/yelb-cve-reports/" --flat=true --server-id=my-new-server
+             jf rt u "./yelb/yelb/yelb-ui-cves.txt" "yelb/yelb-cve-reports/" --flat=true --server-id=my-new-server
     
     # # Step 1: Checkout repository code
     # - name: Checkout repository
