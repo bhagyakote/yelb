@@ -6,12 +6,11 @@ on:
   #   branches: [master]
   workflow_dispatch:
 
- 
-    
-jobs:
-  # build:
-  #   runs-on: tag3
-  #   steps:
+
+jobs: 
+    build:
+      runs-on: tag3
+      steps:
     
      # - name: Log in to Docker Hub
      #   uses: docker/login-action@v3
@@ -33,39 +32,44 @@ jobs:
      #      docker tag yelb-ui:latest 311141523175.dkr.ecr.us-east-1.amazonaws.com/ecr1:yelb-ui
      #      docker tag yelb-db:latest 311141523175.dkr.ecr.us-east-1.amazonaws.com/ecr1:yelb-db
      #      docker tag yelb-appserver:latest 311141523175.dkr.ecr.us-east-1.amazonaws.com/ecr1:yelb-appserver
-          
-     # - name: Scan yelb-ui for vulnerabilities with Docker Scout
-     #   run: |
+      
+      - name: Scan yelb-ui for vulnerabilities with Docker Scout
+        run: |
             
-     #        docker scout cves yelb-ui:latest > /home/fs-lp-27/actions-runner3/_work/yelb/yelb/yelb-ui-cves.txt
-     #        docker scout cves yelb-db:latest > /home/fs-lp-27/actions-runner3/_work/yelb/yelb/yelb-db-cves.txt
-     #        docker scout cves yelb-appserver:latest > /home/fs-lp-27/actions-runner3/_work/yelb/yelb/yelb-appserver-cves.txt
+            docker scout cves yelb-ui:latest > /home/fs-lp-27/actions-runner3/_work/yelb/yelb/yelb-ui-cves.txt
+            docker scout cves yelb-db:latest > /home/fs-lp-27/actions-runner3/_work/yelb/yelb/yelb-db-cves.txt
+            docker scout cves yelb-appserver:latest > /home/fs-lp-27/actions-runner3/_work/yelb/yelb/yelb-appserver-cves.txt
 
-  frog-Integration-check:
-      runs-on: tag3
+            
+      - name: List files in /home/fs-lp-27/actions-runner3/_work/yelb/yelb
+        run: |
+          echo "Listing files in /home/fs-lp-27/actions-runner3/_work/yelb/yelb"
+          ls -l /home/fs-lp-27/actions-runner3/_work/yelb/yelb
+  # frog-Integration-check:
+  #     runs-on: tag3
   
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v3
+  #     steps:
+  #       - name: Checkout code
+  #         uses: actions/checkout@v3
   
-        - name: Setup JFrog CLI with server config
-          uses: jfrog/setup-jfrog-cli@v3
-          # with:
-          #   version: latest
-          # env:
-          #   JF_URL: ${{ secrets.JF_URL }}
-          #   JF_USER: ${{ secrets.JF_USER }}
-          #   JF_PASSWORD: ${{ secrets.JF_PASSWORD }}
-        - name: Configure JFrog CLI with Access Token
-          run: |
-            jf config add my-new-server \
-               --url=https://trialkgkkwb.jfrog.io \
-               --user=shriiee.raj98@gmail.com \
-               --access-token=cmVmdGtuOjAxOjE3NzU5MDgwOTc6akxLMlJ0aFEwNnJkbDhzS2hiMnBySnQwTm9U \
-               --interactive=false
+  #       - name: Setup JFrog CLI with server config
+  #         uses: jfrog/setup-jfrog-cli@v3
+  #         # with:
+  #         #   version: latest
+  #         # env:
+  #         #   JF_URL: ${{ secrets.JF_URL }}
+  #         #   JF_USER: ${{ secrets.JF_USER }}
+  #         #   JF_PASSWORD: ${{ secrets.JF_PASSWORD }}
+  #       - name: Configure JFrog CLI with Access Token
+  #         run: |
+  #           jf config add my-new-server \
+  #              --url=https://trialkgkkwb.jfrog.io \
+  #              --user=shriiee.raj98@gmail.com \
+  #              --access-token=cmVmdGtuOjAxOjE3NzU5MDgwOTc6akxLMlJ0aFEwNnJkbDhzS2hiMnBySnQwTm9U \
+  #              --interactive=false
                
-        - name: Upload artifact to Artifactory
-          run: jf rt u "/home/fs-lp-27/actions-runner3/_work/yelb/yelb/*.txt" "yelb/yelb-cve-reports/" --flat=true --server-id=my-new-server
+  #       - name: Upload artifact to Artifactory
+  #         run: jf rt u "/home/fs-lp-27/actions-runner3/_work/yelb/yelb/*.txt" "yelb/yelb-cve-reports/" --flat=true --server-id=my-new-server
     
     # # Step 1: Checkout repository code
     # - name: Checkout repository
