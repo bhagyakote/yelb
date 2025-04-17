@@ -102,7 +102,7 @@ jobs:
               script: |
                 cd ~/app
                 docker-compose down
-                docker-compose up -d --build
+                docker-compose -f deployments/localtest/docker-compose.yaml  up -d  
     
     # # Step 1: Checkout repository code
     # - name: Checkout repository
