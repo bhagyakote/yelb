@@ -58,9 +58,10 @@ jobs:
 
       - name: Scan docker images for Docker hadolint
         run: |
-          hadolint ./yelb-ui/Dockerfile --ignore DL3003 --ignore DL3020 --ignore DL4000 --ignore DL3059 --ignore DL3022
-          hadolint ./yelb-db/Dockerfile --ignore DL3003 DL4000 --ignore
-          hadolint ./yelb-appserver/Dockerfile --ignore DL3003 --ignore DL3028
+          hadolint ./yelb-ui/Dockerfile --ignore DL3003,DL3020,DL4000,DL3059,DL3022
+
+          hadolint ./yelb-db/Dockerfile --ignore DL3003,DL4000 
+          hadolint ./yelb-appserver/Dockerfile --ignore DL3003,DL3028
 
   jfrog-Integration-check:
     runs-on: tag3
