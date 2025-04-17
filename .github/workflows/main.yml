@@ -31,11 +31,11 @@ jobs:
           docker tag yelb-db:latest 311141523175.dkr.ecr.us-east-1.amazonaws.com/ecr1:yelb-db
           docker tag yelb-appserver:latest 311141523175.dkr.ecr.us-east-1.amazonaws.com/ecr1:yelb-appserver
 
-      - name: Push Docker image to ECR
-        run: |
-          docker push 311141523175.dkr.ecr.us-east-1.amazonaws.com/ecr1:yelb-ui
-          docker push 311141523175.dkr.ecr.us-east-1.amazonaws.com/ecr1:yelb-db
-          docker push 311141523175.dkr.ecr.us-east-1.amazonaws.com/ecr1:yelb-appserver
+      # - name: Push Docker image to ECR
+      #   run: |
+      #     docker push 311141523175.dkr.ecr.us-east-1.amazonaws.com/ecr1:yelb-ui
+      #     docker push 311141523175.dkr.ecr.us-east-1.amazonaws.com/ecr1:yelb-db
+      #     docker push 311141523175.dkr.ecr.us-east-1.amazonaws.com/ecr1:yelb-appserver
 
   Docker-scout-scanning:
     runs-on: tag3
