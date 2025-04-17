@@ -49,35 +49,60 @@ jobs:
 
 
           
-    frog-Integration-check:
-      runs-on: tag3
+    # frog-Integration-check:
+    #   runs-on: tag3
   
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v3
+    #   steps:
+    #     - name: Checkout code
+    #       uses: actions/checkout@v3
   
-        - name: Setup JFrog CLI with server config
-          uses: jfrog/setup-jfrog-cli@v3
+    #     - name: Setup JFrog CLI with server config
+    #       uses: jfrog/setup-jfrog-cli@v3
           # with:
           #   version: latest
           # env:
           #   JF_URL: ${{ secrets.JF_URL }}
           #   JF_USER: ${{ secrets.JF_USER }}
           #   JF_PASSWORD: ${{ secrets.JF_PASSWORD }}
-        - name: Configure JFrog CLI with Access Token
-          run: |
-            jf config add my-new-server \
-               --url=https://trialkgkkwb.jfrog.io \
-               --user=shriiee.raj98@gmail.com \
-               --access-token=cmVmdGtuOjAxOjE3NzU5MDgwOTc6akxLMlJ0aFEwNnJkbDhzS2hiMnBySnQwTm9U \
-               --interactive=false
+        # - name: Configure JFrog CLI with Access Token
+        #   run: |
+        #     jf config add my-new-server \
+        #        --url=https://trialkgkkwb.jfrog.io \
+        #        --user=shriiee.raj98@gmail.com \
+        #        --access-token=cmVmdGtuOjAxOjE3NzU5MDgwOTc6akxLMlJ0aFEwNnJkbDhzS2hiMnBySnQwTm9U \
+        #        --interactive=false
                
-        - name: Upload artifact to Artifactory
-          run: |
-             jf rt u "/home/fs-lp-27/reports/yelb-ui-cves.txt" "yelb/yelb-cve-reports/" --flat=true --server-id=my-new-server
-             jf rt u "/home/fs-lp-27/reports/yelb-db-cves.txt" "yelb/yelb-cve-reports/" --flat=true --server-id=my-new-server
-             jf rt u "/home/fs-lp-27/reports/yelb-appserver-cves.txt" "yelb/yelb-cve-reports/" --flat=true --server-id=my-new-server
-    
+        # - name: Upload artifact to Artifactory
+        #   run: |
+        #      jf rt u "/home/fs-lp-27/reports/yelb-ui-cves.txt" "yelb/yelb-cve-reports/" --flat=true --server-id=my-new-server
+        #      jf rt u "/home/fs-lp-27/reports/yelb-db-cves.txt" "yelb/yelb-cve-reports/" --flat=true --server-id=my-new-server
+        #      jf rt u "/home/fs-lp-27/reports/yelb-appserver-cves.txt" "yelb/yelb-cve-reports/" --flat=true --server-id=my-new-server
+  
+   deploy:
+      runs-on: ubuntu-latest
+      steps:
+         - name: Checkout Repository
+           uses: actions/checkout@v3
+
+         - name: Copy project to EC2 via SCP
+           uses: appleboy/scp-action@v0.1.4
+           with:
+              host: ${{ secrets.EC2_HOST }}
+              username: ${{ secrets.EC2_USER }}
+              key: ${{ secrets.EC2_SSH_KEY }}
+              source: "."
+              target: "~/app"
+
+         - name: Run docker-compose on EC2
+           uses: appleboy/ssh-action@v1.0.3
+           with:
+              host: ${{ secrets.EC2_HOST }}
+              username: ${{ secrets.EC2_USER }}
+              key: ${{ secrets.EC2_SSH_KEY }}
+              script: |
+                cd ~/app
+                docker-compose down
+                docker-compose up -d --build
     
     # # Step 1: Checkout repository code
     # - name: Checkout repository
