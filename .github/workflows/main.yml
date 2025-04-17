@@ -79,7 +79,7 @@ jobs:
         #      jf rt u "/home/fs-lp-27/reports/yelb-appserver-cves.txt" "yelb/yelb-cve-reports/" --flat=true --server-id=my-new-server
   
    deploy:
-      runs-on: ubuntu-latest
+      runs-on: tag3
       steps:
          - name: Checkout Repository
            uses: actions/checkout@v3
